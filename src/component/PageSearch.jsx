@@ -191,8 +191,7 @@ export default class PageSearch extends React.Component {
 	hasLoaded() {
 		return this.state.entities !== null
 			&& this.state.NEWS !== null
-			&& this.state.EVENT !== null
-			&& this.state.JOB_OFFER !== null;
+			&& this.state.EVENT !== null;
 	}
 
 	render() {
