@@ -1,4 +1,4 @@
-name: openxeco-web-portal build and release package
+name: openxeco-web-portal-ec build and release package
 
 on:
   push:

@@ -49,6 +49,10 @@
     min-height: 100px;
 }
 
+.navbar-brand a:hover {
+    background-color: unset !important;
+}
+
 .navbar-brand a img {
     background: 
         linear-gradient( 135deg,transparent 10px,white 0) left /50.5% 100%,

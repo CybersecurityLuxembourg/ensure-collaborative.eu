@@ -13,7 +13,6 @@ import DynamicTable from "./table/DynamicTable.jsx";
 import Tab from "./tab/Tab.jsx";
 import Article from "./item/Article.jsx";
 import Event from "./item/Event.jsx";
-import JobOfferHorizontal from "./item/JobOfferHorizontal.jsx";
 import { getSettingValue } from "../utils/setting.jsx";
 
 export default class PageCompany extends React.Component {
@@ -23,13 +22,11 @@ export default class PageCompany extends React.Component {
 		this.getCompanyContent = this.getCompanyContent.bind(this);
 		this.getCompanyNews = this.getCompanyNews.bind(this);
 		this.getCompanyEvents = this.getCompanyEvents.bind(this);
-		this.getCompanyJobOffers = this.getCompanyJobOffers.bind(this);
 
 		this.state = {
 			company: null,
 			news: null,
 			events: null,
-			jobOffers: null,
 			selectedMenu: null,
 		};
 	}
@@ -38,11 +35,10 @@ export default class PageCompany extends React.Component {
 		this.getCompanyContent();
 		this.getCompanyNews();
 		this.getCompanyEvents();
-		this.getCompanyJobOffers();
 	}
 
 	getCompanyContent() {
-		getRequest.call(this, "public/get_public_company/" + this.props.match.params.handle, (data) => {
+		getRequest.call(this, "public/get_public_entity/" + this.props.match.params.handle, (data) => {
 			this.setState({
 				company: data,
 			});
@@ -93,26 +89,6 @@ export default class PageCompany extends React.Component {
 		});
 	}
 
-	getCompanyJobOffers(page) {
-		const params = {
-			type: "JOB OFFER",
-			companies: this.props.match.params.handle,
-			page: page || 1,
-			per_page: 3,
-		};
-
-		getRequest.call(this, "public/get_public_articles?"
-			+ dictToURI(params), (data) => {
-			this.setState({
-				jobOffers: data,
-			});
-		}, (response) => {
-			nm.warning(response.statusText);
-		}, (error) => {
-			nm.error(error.message);
-		});
-	}
-
 	changeState(field, value) {
 		this.setState({ [field]: value });
 	}
@@ -128,7 +104,7 @@ export default class PageCompany extends React.Component {
 									<Link to="/">{getSettingValue(this.props.settings, "PROJECT_NAME")}</Link>
 								</Breadcrumb.Item>
 							}
-							<Breadcrumb.Item><Link to="/ecosystem">Ecosystem</Link></Breadcrumb.Item>
+							<Breadcrumb.Item><Link to="/members">Members</Link></Breadcrumb.Item>
 							{this.state.company !== null && !this.state.loading
 								? <Breadcrumb.Item>
 									<a href={"/company/" + this.state.company.id}>{this.state.company.name}</a>
@@ -227,11 +203,10 @@ export default class PageCompany extends React.Component {
 					<div className="col-md-12">
 						<Tab
 							selectedMenu={this.state.selectedMenu}
-							keys={["NEWS", "EVENTS", "JOB OFFERS"]}
+							keys={["NEWS", "EVENTS"]}
 							labels={[
 								"News (" + (this.state.news ? this.state.news.pagination.total : "?") + ")",
 								"Events (" + (this.state.events ? this.state.events.pagination.total : "?") + ")",
-								"Job offers (" + (this.state.jobOffers ? this.state.jobOffers.pagination.total : "?") + ")",
 							]}
 							content={[
 								this.state.news !== null
@@ -275,30 +250,6 @@ export default class PageCompany extends React.Component {
 											/>
 											: <Message
 												text={"No event found"}
-												height={150}
-											/>
-										}
-									</div>
-									: <Loading
-										height={150}
-									/>,
-								this.state.jobOffers !== null
-									? <div className="col-md-12">
-										{this.state.jobOffers.pagination.total > 0
-											? <DynamicTable
-												items={this.state.jobOffers.items}
-												pagination={this.state.jobOffers.pagination}
-												changePage={(page) => this.getCompanyJobOffers(page)}
-												buildElement={(a) => <div className="col-md-12">
-													<JobOfferHorizontal
-														info={a}
-														analytics={this.props.analytics}
-													/>
-												</div>
-												}
-											/>
-											: <Message
-												text={"No job found"}
 												height={150}
 											/>
 										}

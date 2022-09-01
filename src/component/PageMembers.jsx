@@ -1,5 +1,5 @@
 import React from "react";
-import "./PageEcosystem.css";
+import "./PageMembers.css";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import { Link } from "react-router-dom";
 import { NotificationManager as nm } from "react-notifications";
@@ -12,7 +12,7 @@ import CompanySearch from "./form/CompanySearch.jsx";
 import { getUrlParameter, dictToURI } from "../utils/url.jsx";
 import { getSettingValue } from "../utils/setting.jsx";
 
-export default class PageEcosystem extends React.Component {
+export default class PageMembers extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -64,7 +64,7 @@ export default class PageEcosystem extends React.Component {
 					taxonomy_values: values[0].id,
 				};
 
-				getRequest.call(this, "public/get_public_companies?" + dictToURI(params), (data) => {
+				getRequest.call(this, "public/get_public_entities?" + dictToURI(params), (data) => {
 					this.setState({
 						members: data,
 					});
@@ -96,7 +96,7 @@ export default class PageEcosystem extends React.Component {
 
 	render() {
 		return (
-			<div className={"PageEcosystem page max-sized-page"}>
+			<div className={"PageMembers page max-sized-page"}>
 				<div className="row">
 					<div className="col-md-12">
 						<Breadcrumb>
@@ -105,7 +105,7 @@ export default class PageEcosystem extends React.Component {
 									<Link to="/">{getSettingValue(this.props.settings, "PROJECT_NAME")}</Link>
 								</Breadcrumb.Item>
 							}
-							<Breadcrumb.Item><Link to="/ecosystem">Ecosystem</Link></Breadcrumb.Item>
+							<Breadcrumb.Item><Link to="/members">Members</Link></Breadcrumb.Item>
 						</Breadcrumb>
 					</div>
 				</div>

@@ -6,7 +6,7 @@ import { getRequest } from "../utils/request.jsx";
 import Menu from "./bar/Menu.jsx";
 import Footer from "./bar/Footer.jsx";
 import PageHome from "./PageHome.jsx";
-import PageEcosystem from "./PageEcosystem.jsx";
+import PageMembers from "./PageMembers.jsx";
 import PageNews from "./PageNews.jsx";
 import PageEvents from "./PageEvents.jsx";
 import PageArticle from "./PageArticle.jsx";
@@ -60,7 +60,7 @@ export default class InsideApp extends React.Component {
 							{...props} settings={this.state.settings}
 						/>}/>
 
-						<Route path="/ecosystem" render={(props) => <PageEcosystem
+						<Route path="/members" render={(props) => <PageMembers
 							{...props} settings={this.state.settings}
 						/>}/>
 						<Route path="/news" render={(props) => <PageNews

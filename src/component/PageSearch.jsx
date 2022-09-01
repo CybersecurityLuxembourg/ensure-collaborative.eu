@@ -10,7 +10,6 @@ import Message from "./box/Message.jsx";
 import Company from "./item/Company.jsx";
 import ArticleHorizontal from "./item/ArticleHorizontal.jsx";
 import EventHorizontal from "./item/EventHorizontal.jsx";
-import JobOfferHorizontal from "./item/JobOfferHorizontal.jsx";
 import SearchField from "./form/SearchField.jsx";
 import SimpleTable from "./table/SimpleTable.jsx";
 import DynamicTable from "./table/DynamicTable.jsx";
@@ -27,7 +26,7 @@ export default class PageSearch extends React.Component {
 		this.hasLoaded = this.hasLoaded.bind(this);
 
 		this.state = {
-			articleTypes: ["NEWS", "EVENT", "JOB OFFER"],
+			articleTypes: ["NEWS", "EVENT"],
 			searchValue: getUrlParameter("r") ? decodeURI(getUrlParameter("r")) : null,
 			taxonomyValue: getUrlParameter("taxonomy_value") ? getUrlParameter("taxonomy_value") : null,
 			entities: null,
@@ -77,7 +76,7 @@ export default class PageSearch extends React.Component {
 				? { name: this.state.searchValue }
 				: { taxonomy_values: this.state.taxonomyValue };
 
-			getRequest.call(this, "public/get_public_companies?"
+			getRequest.call(this, "public/get_public_entities?"
 				+ dictToURI(filters), (data) => {
 				this.setState({
 					entities: data,
@@ -284,7 +283,6 @@ export default class PageSearch extends React.Component {
 				{this.state.entities && this.state.entities.length === 0
 					&& this.state.NEWS && this.state.NEWS.items.length === 0
 					&& this.state.EVENT && this.state.EVENT.items.length === 0
-					&& this.state.JOB_OFFER && this.state.JOB_OFFER.items.length === 0
 					&& <div className="row">
 						<div className="col-md-12">
 							<Message
@@ -307,7 +305,7 @@ export default class PageSearch extends React.Component {
 								buildElement={(a) => (
 									<div className="col-md-6">
 										<Company
-											info={a}
+											info={a[0]}
 										/>
 									</div>
 								)}
@@ -350,27 +348,6 @@ export default class PageSearch extends React.Component {
 								buildElement={(a) => (
 									<div className="col-md-12">
 										<EventHorizontal
-											info={a}
-											analytics={this.props.analytics}
-										/>
-									</div>
-								)}
-							/>
-						</div>
-					</div>
-				}
-
-				{this.state.JOB_OFFER && this.state.JOB_OFFER.items.length > 0
-					&& <div className="row">
-						<div className="col-md-12">
-							<h3>{this.state.JOB_OFFER.pagination.total + " "}job offer{this.state.JOB_OFFER.pagination.total > 1 ? "s" : ""}</h3>
-							<DynamicTable
-								items={this.state.JOB_OFFER.items}
-								pagination={this.state.JOB_OFFER.pagination}
-								changePage={(page) => this.getArticlesByType("JOB OFFER", page)}
-								buildElement={(a) => (
-									<div className="col-md-12">
-										<JobOfferHorizontal
 											info={a}
 											analytics={this.props.analytics}
 										/>

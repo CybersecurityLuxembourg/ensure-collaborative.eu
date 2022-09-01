@@ -39,7 +39,7 @@ export default class PageJob extends React.Component {
 			relatedArticleLoading: false,
 		});
 
-		getRequest.call(this, "public/get_article_content/" + this.props.match.params.handle, (data) => {
+		getRequest.call(this, "public/get_public_article_content/" + this.props.match.params.handle, (data) => {
 			this.setState({
 				article: data,
 				articleLoading: false,
@@ -167,7 +167,7 @@ export default class PageJob extends React.Component {
 								</div>
 
 								<div className="PageJob-companies">
-									{this.state.article.company_tags.map((t) => (
+									{this.state.article.entity_tags.map((t) => (
 										<Chip
 											key={t.name}
 											label={t.name}
@@ -210,7 +210,7 @@ export default class PageJob extends React.Component {
 								</div>
 
 								<div className="PageJob-companies">
-									{this.state.article.company_tags.map((t) => (
+									{this.state.article.entity_tags.map((t) => (
 										<Chip
 											key={t.name}
 											label={t.name}
