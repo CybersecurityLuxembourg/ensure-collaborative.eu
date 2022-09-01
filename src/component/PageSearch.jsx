@@ -206,7 +206,7 @@ export default class PageSearch extends React.Component {
 									<Link to="/">{getSettingValue(this.props.settings, "PROJECT_NAME")}</Link>
 								</Breadcrumb.Item>
 							}
-							<Breadcrumb.Item><Link to="/search">SEARCH</Link></Breadcrumb.Item>
+							<Breadcrumb.Item><Link to="/search">Search</Link></Breadcrumb.Item>
 						</Breadcrumb>
 					</div>
 				</div>
