@@ -52,7 +52,7 @@ export default class PageCompany extends React.Component {
 	getCompanyNews(page) {
 		const params = {
 			type: "NEWS",
-			companies: this.props.match.params.handle,
+			entities: this.props.match.params.handle,
 			page: page || 1,
 			per_page: 3,
 		};
@@ -72,7 +72,7 @@ export default class PageCompany extends React.Component {
 	getCompanyEvents(page) {
 		const params = {
 			type: "EVENT",
-			companies: this.props.match.params.handle,
+			entities: this.props.match.params.handle,
 			page: page || 1,
 			per_page: 3,
 		};
